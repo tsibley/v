@@ -1,0 +1,18 @@
+v is z for vim
+
+z - http://github.com/rupa/z
+v - http://github.com/tsibley/v
+
+# maintains a jump-list of the files you actually edit
+#
+# INSTALL:
+#   * symlink this script into your PATH
+#   * if you want tab completion, source v-completion.sh
+#   * use v to edit files for a while to build up the db
+#
+# USE:
+#   * v foo     # edits the most frecent file matching foo
+#   * v foo bar # edits the most frecent file matching foo and bar
+#   * v -r foo  # edits the highest ranked file matching foo
+#   * v -t foo  # edits the most recently accessed file matching foo
+#   * v -l foo  # list all files matching foo (by frecency)
