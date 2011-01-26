@@ -17,8 +17,6 @@
 # TODO:
 #   * refactor the vim --cmd options into $vimopts, but shell escaping is
 #     annoying
-#   * make tab completion smarter and also offer files from the filesystem
-#     instead of just v's history
 
 datafile="$HOME/.v"
 
