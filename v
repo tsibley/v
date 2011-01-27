@@ -4,7 +4,7 @@
 #
 # INSTALL:
 #   * symlink this script into your PATH
-#   * put v.vim in ~/.vim/plugin/
+#   * symlink v.vim into ~/.vim/plugin/
 #   * source v-completion.sh from your shell rc if you want tab completion
 #   * use vim or v to edit files for a while to build up the db
 #
