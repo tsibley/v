@@ -10,7 +10,7 @@ elif compctl &> /dev/null; then
     read -l compl
     reply=(`v --complete "$compl"`)
   }
-  # how to also complete filenames in zsh?
+  # XXX TODO: how to also complete filenames in zsh?
   compctl -U -K _v_zsh_tab_completion v
 fi
 

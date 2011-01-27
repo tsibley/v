@@ -4,8 +4,9 @@
 #
 # INSTALL:
 #   * symlink this script into your PATH
-#   * if you want tab completion, source v-completion.sh
-#   * use v to edit files for a while to build up the db
+#   * put v.vim in ~/.vim/plugin/
+#   * source v-completion.sh from your shell rc if you want tab completion
+#   * use vim or v to edit files for a while to build up the db
 #
 # USE:
 #   * v foo     # edits the most frecent file matching foo
@@ -13,10 +14,6 @@
 #   * v -r foo  # edits the highest ranked file matching foo
 #   * v -t foo  # edits the most recently accessed file matching foo
 #   * v -l foo  # list all files matching foo (by frecency)
-
-# TODO:
-#   * refactor the vim --cmd options into $vimopts, but shell escaping is
-#     annoying
 
 datafile="$HOME/.v"
 
@@ -80,7 +77,7 @@ else
  [ "$fnd" ] || list=1
 
  # if we hit enter on a completion just go there
- [ -e "$last" ] && vim --cmd 'au BufRead * execute "silent !v --add " . shellescape(expand("%:p"), 1)' "$last" && exit
+ [ -e "$last" ] && vim "$last" && exit
 
  # no file yet
  [ -f "$datafile" ] || exit
@@ -149,7 +146,7 @@ else
   rm -f "$datafile.tmp"
  else
   mv -f "$datafile.tmp" "$datafile"
-  [ "$vim" ] && vim --cmd 'au BufRead * execute "silent !v --add " . shellescape(expand("%:p"), 1)' "$vim"
+  [ "$vim" ] && vim "$vim"
  fi
 fi
 
