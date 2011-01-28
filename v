@@ -22,6 +22,7 @@ if [ "$1" = "--add" ]; then
  shift
 
  # maintain the file
+ tempfile="$(mktemp $datafile.XXXXXX)" || exit
  awk -v path="$*" -v now="$(date +%s)" -F"|" '
   BEGIN {
    rank[path] = 1
@@ -42,8 +43,8 @@ if [ "$1" = "--add" ]; then
     for( i in rank ) print i "|" 0.9*rank[i] "|" time[i] # aging
    } else for( i in rank ) print i "|" rank[i] "|" time[i]
   }
- ' "$datafile" 2>/dev/null > "$datafile.tmp"
- mv -f "$datafile.tmp" "$datafile"
+ ' "$datafile" 2>/dev/null > "$tempfile"
+ mv -f "$tempfile" "$datafile"
 
 # tab completion
 elif [ "$1" = "--complete" ]; then
@@ -82,7 +83,8 @@ else
  # no file yet
  [ -f "$datafile" ] || exit
 
- vim="$(awk -v t="$(date +%s)" -v list="$list" -v typ="$typ" -v q="$fnd" -v tmpfl="$datafile.tmp" -F"|" '
+ tempfile="$(mktemp $datafile.XXXXXX)" || exit
+ vim="$(awk -v t="$(date +%s)" -v list="$list" -v typ="$typ" -v q="$fnd" -v tmpfl="$tempfile" -F"|" '
   function frecent(rank, time) {
    dx = t-time
    if( dx < 3600 ) return rank*4
@@ -143,9 +145,9 @@ else
   }
  ' "$datafile")"
  if [ $? -gt 0 ]; then
-  rm -f "$datafile.tmp"
+  rm -f "$tempfile"
  else
-  mv -f "$datafile.tmp" "$datafile"
+  mv -f "$tempfile" "$datafile"
   [ "$vim" ] && vim "$vim"
  fi
 fi
